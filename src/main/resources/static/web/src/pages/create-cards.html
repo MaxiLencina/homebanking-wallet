@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRC Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;800;1000&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="../assets/imgQueVoyAUsar/FRC_BANK.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="../../dist/output.css" rel="stylesheet">
+  <!-- npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch 
+    PARA REBUILDEAR
+-->
+</head>
+
+<body class="bg-cover bg-fixed bg-[url('../assets/imgQueVoyAUsar/bg_hero_accounts2.jpg')]">
+  <div id="app" class="mx-[16px] sm:max-w-[700px] sm:mx-auto">
+    <!-- navbar -->
+    <nav class=" flex justify-between items-center sm:max-w-[600px] sm:mx-auto">
+      <a class="logo text-white absolute top-[30px] sm:static " href="./accounts.html"><img
+          class="w-[70px] h-[25px] self-center invert" src="../assets/imgQueVoyAUsar/FRC_BANK.png"
+          alt="logo_frcbank"></a>
+      <div class="w-[40px]  absolute top-[1rem] right-[0.7rem] invert sm:hidden cursor-pointer z-40  ">
+        <img @click=" clickMenuDos()" class="max-w-[100%] " src="../assets/imgQueVoyAUsar/menu_icon.svg"
+          alt="iconomenu">
+      </div>
+      <ul :class="{'translate-y-0': active}"
+        class="flex flex-col gap-4 sm:flex-row items-center translate-y-[-100%] sm:translate-y-0 z-30 transition-transform ease delay-150 py-[30px] w-full sm:w-auto">
+        <li><a
+            class=" text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./accounts.html">Cuenta</a></li>
+        <li><a
+            class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./transfer.html">Transacciones</a></li>
+
+        <li><a
+            class="text-gray-300 border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="#">Tarjetas</a></li>
+        <li><a
+            class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./loanAplication.html">Prestamos</a></li>
+
+        <li title="cerrar sesión" @click="LogOut()"><a href="#"><img class="w-[20px] h-[20px]"
+              src="../assets/imgQueVoyAUsar/icono_logout.svg" alt="logo_user"></a>
+        </li>
+        <!-- <li class="sm:ml-24 p-[10px]"><a @click="LogOut()" class="w-[30px] h-[30px] flex flex-row gap-2 " href=""
+                      title="cerrar sesión">
+                      <p>Logout</p>
+                      <img class="w-[20px]" src="../assets/imgQueVoyAUsar/icono_logout.svg" alt="iconologout">
+                    </a></li> -->
+
+      </ul>
+    </nav>
+
+
+    <header class="flex flex-row justify-between my-[3rem] mx-[16px] sm:max-w-[600px] sm:mx-auto">
+      <h1 class="font-bold text-4xl text-white">Creá tu tarjeta</h1>
+
+    </header>
+
+
+    <form v-on:submit="createCard($event)"
+      class="flex flex-col justify-center items-center gap-6 bg-[url('../assets/imgQueVoyAUsar/createcardimage.jpg')] h-[600px] bg-cover bg-no-repeat rounded-lg mb-[2rem] mx-[16px] sm:max-w-[600px] sm:mx-auto"
+      action="">
+      <label for="card-type" class=" text-[#f2f2f2] font-medium text-lg">Tipo de tarjeta:</label>
+      <select v-model="cardType"
+        class="w-[280px] sm:w-[350px] text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 cursor-pointer"
+        required>
+        <option value="none">
+          Selecciona el tipo de tarjeta
+        </option>
+        <option class="cursor-pointer" value="DEBIT">
+          Debito
+        </option>
+        <option class="cursor-pointer" value="CREDIT">
+          Credito
+        </option>
+
+      </select>
+      <div v-show="cardType == 'none' ">
+        <div class="w-[280px] sm:w-[350px] bg-red-200 border-red-600 text-red-600 border-l-4 p-4" role="alert">
+          <p>
+            Selecciona un tipo de tarjeta.
+          </p>
+        </div>
+      </div>
+
+      <div v-show="cardType == 'DEBIT' || cardType == 'CREDIT' ">
+        <div class="w-[280px] sm:w-[350px] bg-green-200 border-green-600 text-green-600 border-l-4 p-4" role="alert">
+          <p class="font-bold">
+            Bien Hecho.
+          </p>
+          <p>
+            Ahora selecciona el color de tu tarjeta.
+          </p>
+        </div>
+
+      </div>
+
+      <label for="card-type" class="text-[#f2f2f2] font-medium text-lg ">Color de tarjeta:</label>
+      <select v-model="cardColor"
+        class=" w-[280px] sm:w-[350px] text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 cursor-pointer flex flex-col"
+        required>
+        <option value="none">
+          Selecciona el color de la tarjeta
+        </option>
+        <option class="cursor-pointer" value="GOLD">
+          Gold
+        </option>
+        <option class="cursor-pointer" value="SILVER">
+          Silver
+        </option>
+        <option class="cursor-pointer" value="TITANIUM">
+          Titanium
+        </option>
+
+      </select>
+
+      <div v-show="cardColor == 'none' || cardType == 'none'">
+        <div class="w-[280px] sm:w-[350px] bg-red-200 border-red-600 text-red-600 border-l-4 p-4" role="alert">
+          <p v-show="cardColor == 'none'">
+            Selecciona color de tarjeta.
+          </p>
+          <p v-show="cardType == 'none'">
+            Selecciona el tipo de tarjeta.
+          </p>
+        </div>
+      </div>
+
+      <div v-show="(cardColor == 'GOLD' || cardColor == 'SILVER' || cardColor == 'TITANIUM') && cardType != 'none'">
+        <div class="w-[280px] sm:w-[350px] bg-green-200 border-green-600 text-green-600 border-l-4 p-4" role="alert">
+          <p class="font-bold">
+            Bien Hecho.
+          </p>
+          <p>
+            Ya podés crear tu tarjeta.
+          </p>
+        </div>
+
+      </div>
+
+      <input :class="{'hidden' : cards.length == 6}"
+        class="bg-blue-500 hover:bg-[#4561dd] transition-all duration-300 ease-in-out rounded-xl p-3 text-white  cursor-pointer "
+        type="submit" value="Crear">
+
+
+
+
+
+    </form>
+
+
+
+  </div>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../js/create-cards.js"></script>
+</body>

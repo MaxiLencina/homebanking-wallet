@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRC Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;800;1000&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="assets/imgQueVoyAUsar/FRC_BANK.png" type="image/x-icon">
+  <link href="../dist/output.css" rel="stylesheet">
+  <!-- npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch 
+    PARA REBUILDEAR
+-->
+</head>
+
+<body>
+
+
+  <!-- loguin homebanking -->
+  <div id="app">
+    <div class="relative w-full min-h-screen bg-[#efdfdf] overflow-hidden contenedor " :class="{'sign-up-mode': sign }">
+      <div class="absolute w-full h-full top-0 left-0">
+        <div
+          class="signin-signup absolute top-[50%] left-[75%] transform translate-x-[-50%] translate-y-[-50%] w-1/2 transition duration-100 ease-in-out delay-75 grid grid-cols-[1fr] z-[5]">
+          <form action="#" v-on:submit="signIn($event)"
+            class="flex flex-col grid-col-1-2 grid-row-1-2 items-center justify-center gap-4 sign-in-form">
+            <h2 class="text-4xl font-extrabold text-gray-700 mb-3">Bienvenido a</h2>
+            <div class="w-[200px] h-[80px]">
+              <img class="" src="assets/imgQueVoyAUsar/FRC_BANK.png" alt="logo_frc_bank">
+            </div>
+            <div
+              class="grid grid-cols-[15%_85%] max-w-[300px] w-full h-[55px] bg-[#f0f0f0] mx-[10px] my-0 rounded-[55px] py-0 px-[0.4rem] shadow-sm">
+              <div class="flex justify-center items-center">
+                <img src="assets/imgQueVoyAUsar/User_input_icon.svg" alt="usericon">
+              </div>
+              <input v-model="email"
+                class="bg-transparent outline-none border-none leading-relaxed font-semibold text-[1.1rem] text-[#333] placeholder:text-[#aaa] placeholder:font-medium"
+                type="email" placeholder="ejemplo@mindhub.com" />
+            </div>
+            <div
+              class="grid grid-cols-[15%_85%] max-w-[300px] w-full h-[55px] bg-[#f0f0f0] mx-[10px] my-0 rounded-[55px] py-0 px-[0.4rem] shadow-sm">
+              <div class="flex justify-center items-center">
+                <img src="assets/imgQueVoyAUsar/Lock_input_icon.svg" alt="usericon">
+              </div>
+              <input v-model="password"
+                class="bg-transparent outline-none border-none leading-relaxed font-semibold text-[1.1rem] text-[#333] placeholder:text-[#aaa] placeholder:font-medium"
+                type="password" placeholder="contraseña" />
+            </div>
+            <input type="submit" value="ingresar" href="./pages/accounts.html"
+              class="w-[150px] h-[49px] rounded-[49px] cursor-pointer bg-[#5271FF] uppercase text-[#fff] font-semibold my-[10px] mx-0 hover:bg-[#4d84e2] transition duration-500 text-center pt-[12px]">
+            </input>
+            <p class="py-[.7rem] px-0 text-[1.2rem] font-bold text-gray-700">
+              Visitá nuestras redes sociales
+            </p>
+
+            <div class="socialmedia flex justify-center gap-x-2">
+              <a href="#"
+                class="flex justify-center items-center social icon h-[46px] w-[48px] border-[1px] border-solid border-[#333] rounded-full transition duration-300 hover:bg-[#5271FF] hover:border-[#4481eb]">
+                <img src="assets/imgQueVoyAUsar/Fsocial_platform.svg" alt="facebook_icon">
+              </a>
+              <a href="#"
+                class="flex justify-center items-center social icon h-[46px] w-[48px] border-[1px] border-solid border-[#333] rounded-full transition duration-300 hover:bg-[#5271FF] hover:border-[#4481eb]">
+                <img src="assets/imgQueVoyAUsar/Tsocial_platform.svg" alt="icon_twitter">
+              </a>
+              <a href="#"
+                class="flex justify-center items-center social icon h-[46px] w-[48px] border-[1px] border-solid border-[#333] rounded-full transition duration-300 hover:bg-[#5271FF] hover:border-[#4481eb]">
+                <img src="assets/imgQueVoyAUsar/Isocial_platform.svg" alt="ig_icon">
+              </a>
+              <a href="#"
+                class="flex justify-center items-center social icon h-[46px] w-[48px] border-[1px] border-solid border-[#333] rounded-full transition duration-300 hover:bg-[#5271FF] hover:border-[#4481eb]">
+                <img src="assets/imgQueVoyAUsar/Insocial_platform.svg" alt="in_icon">
+              </a>
+            </div>
+          </form>
+
+          <!-- SING UP -->
+          <form action="#" v-on:submit="signUp($event)"
+            class="flex flex-col grid-col-1-2 grid-row-1-2 items-center justify-center gap-4 sign-up-form">
+            <h2 class="text-4xl font-extrabold text-gray-700 mb-3">Registro</h2>
+            <div
+              class="grid grid-cols-[15%_85%] max-w-[300px] w-full h-[55px] bg-[#f0f0f0] mx-[10px] my-0 rounded-[55px] py-0 px-[0.4rem] shadow-sm">
+              <div class="flex justify-center items-center">
+                <img src="assets/imgQueVoyAUsar/User_input_icon.svg" alt="usericon">
+              </div>
+              <input v-model="firstName"
+                class="bg-transparent outline-none border-none leading-relaxed font-semibold text-[1.1rem] text-[#333] placeholder:text-[#aaa] placeholder:font-medium"
+                type="text" placeholder="nombre" />
+            </div>
+            <div
+              class="grid grid-cols-[15%_85%] max-w-[300px] w-full h-[55px] bg-[#f0f0f0] mx-[10px] my-0 rounded-[55px] py-0 px-[0.4rem] shadow-sm">
+              <div class="flex justify-center items-center">
+                <img src="assets/imgQueVoyAUsar/User_input_icon.svg" alt="usericon">
+              </div>
+              <input v-model="lastName"
+                class="bg-transparent outline-none border-none leading-relaxed font-semibold text-[1.1rem] text-[#333] placeholder:text-[#aaa] placeholder:font-medium"
+                type="text" placeholder="apellido" />
+            </div>
+            <div
+              class="grid grid-cols-[15%_85%] max-w-[300px] w-full h-[55px] bg-[#f0f0f0] mx-[10px] my-0 rounded-[55px] py-0 px-[0.4rem] shadow-sm">
+              <div class="flex justify-center items-center">
+                <img src="assets/imgQueVoyAUsar/Img_singUp.svg" alt="imgsingup">
+              </div>
+              <input v-model="email"
+                class="bg-transparent outline-none border-none leading-relaxed font-semibold text-[1.1rem] text-[#333] placeholder:text-[#aaa] placeholder:font-medium"
+                type="email" placeholder="ejemplo@mindhub.com" />
+            </div>
+            <div
+              class="grid grid-cols-[15%_85%] max-w-[300px] w-full h-[55px] bg-[#f0f0f0] mx-[10px] my-0 rounded-[55px] py-0 px-[0.4rem] shadow-sm">
+              <div class="flex justify-center items-center">
+                <img src="assets/imgQueVoyAUsar/Lock_input_icon.svg" alt="usericon">
+              </div>
+              <input v-model="password"
+                class="bg-transparent outline-none border-none leading-relaxed font-semibold text-[1.1rem] text-[#333] placeholder:text-[#aaa] placeholder:font-medium"
+                type="password" placeholder="contraseña" />
+            </div>
+
+            <input
+              class="w-[150px] h-[49px] rounded-[49px] cursor-pointer bg-[#5995fd] uppercase text-[#fff] font-semibold my-[10px] mx-0 hover:bg-[#4d84e2] transition duration-500"
+              type="submit" value="registrarme" />
+            <p class="py-[.7rem] px-0 text-[1.2rem] font-bold text-gray-700">
+              Visitá nuestras redes sociales
+            </p>
+
+            <div class="socialmedia flex justify-center gap-x-2">
+              <a href="#"
+                class="flex justify-center items-center social icon h-[46px] w-[48px] border-[1px] border-solid border-[#333] rounded-full transition duration-300 hover:bg-[#4481eb] hover:border-[#4481eb]">
+                <img src="assets/imgQueVoyAUsar/Fsocial_platform.svg" alt="facebook_icon">
+
+
+              </a>
+              <a href="#"
+                class="flex justify-center items-center social icon h-[46px] w-[48px] border-[1px] border-solid border-[#333] rounded-full transition duration-300 hover:bg-[#4481eb] hover:border-[#4481eb]">
+                <img src="assets/imgQueVoyAUsar/Tsocial_platform.svg" alt="icon_twitter">
+              </a>
+              <a href="#"
+                class="flex justify-center items-center social icon h-[46px] w-[48px] border-[1px] border-solid border-[#333] rounded-full transition duration-300 hover:bg-[#4481eb] hover:border-[#4481eb]">
+                <img src="assets/imgQueVoyAUsar/Isocial_platform.svg" alt="ig_icon">
+              </a>
+              <a href="#"
+                class="flex justify-center items-center social icon h-[46px] w-[48px] border-[1px] border-solid border-[#333] rounded-full transition duration-300 hover:bg-[#4481eb] hover:border-[#4481eb]">
+                <img src="assets/imgQueVoyAUsar/Insocial_platform.svg" alt="in_icon">
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>No tenes una cuenta?</h3>
+            <p>
+              Podes registrarte gratuitamente en nuestro homebanking!
+            </p>
+            <button @click="clickSign()" class="btn transparent" id="sign-up-btn">Registrate</button>
+          </div>
+          <img class="image" src="assets/imgQueVoyAUsar/Img_loguin.svg" alt="imgloguin">
+
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>Ya tienes una cuenta?</h3>
+            <p>ingresá ahora</p>
+            <button @click="clickSign() " class="btn transparent" id="sign-in-btn">Loguéate</button>
+          </div>
+          <img class="image" src="assets/imgQueVoyAUsar/Img_loguin_register.svg" alt="img_loguin_register">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./js/login.js"></script>
+</body>
+
+</html>

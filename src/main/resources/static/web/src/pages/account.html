@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FF1616" />
+  <title>FRC Bank</title>
+  <link rel="shortcut icon" href="assets/logo.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;800;1000&display=swap" rel="stylesheet">
+  <style>
+    html {
+      font-family: 'Mulish', sans-serif;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="../../dist/output.css" rel="stylesheet">
+
+
+
+</head>
+
+<body class=" bg-cover bg-fixed bg-[url('../assets/imgQueVoyAUsar/bg_hero_accounts2.jpg')]">
+  <div id="app">
+    <nav class=" flex justify-between items-center sm:max-w-[600px] sm:mx-auto">
+      <a class="logo text-white absolute top-[30px] sm:static " href="./accounts.html"><img
+          class="w-[70px] h-[25px] self-center invert" src="../assets/imgQueVoyAUsar/FRC_BANK.png"
+          alt="logo_frcbank"></a>
+      <div class="w-[40px]  absolute top-[1rem] right-[0.7rem] invert sm:hidden cursor-pointer z-40  ">
+        <img @click=" clickMenuDos()" class="max-w-[100%] " src="../assets/imgQueVoyAUsar/menu_icon.svg"
+          alt="iconomenu">
+      </div>
+      <ul :class="{'translate-y-0': active}"
+        class="flex flex-col gap-4 sm:flex-row items-center translate-y-[-100%] sm:translate-y-0 z-30 transition-transform ease delay-150 py-[30px] w-full sm:w-auto">
+        <li><a
+            class=" text-gray-300 border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./accounts.html">Cuenta</a></li>
+        <li><a
+            class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./transfer.html#transacciones">Transacciones</a></li>
+
+        <li><a
+            class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./create-cards.html">Tarjetas</a></li>
+        <li><a
+            class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./loanAplication.html">Prestamos</a></li>
+
+        <li title="cerrar sesión" @click="LogOut()"><a href="#"><img class="w-[20px] h-[20px]"
+              src="../assets/imgQueVoyAUsar/icono_logout.svg" alt="logo_user"></a>
+        </li>
+        <!-- <li class="sm:ml-24 p-[10px]"><a @click="LogOut()" class="w-[30px] h-[30px] flex flex-row gap-2 " href=""
+                  title="cerrar sesión">
+                  <p>Logout</p>
+                  <img class="w-[20px]" src="../assets/imgQueVoyAUsar/icono_logout.svg" alt="iconologout">
+                </a></li> -->
+
+      </ul>
+
+
+    </nav>
+
+
+
+    <h2 class="text-center font-bold uppercase text-white text-4xl m-[2rem] ">Info de mis cuentas</h2>
+
+    <!-- TABLA -->
+
+    <table class="container mx-auto border-collapse	hidden sm:table">
+      <tr class="">
+        <th class="bg-[#303030] text-[#f2f2f2] p-[5px] text-left	border-solid border-[#909090] border">Tipo</th>
+        <th class="bg-[#303030] text-[#f2f2f2] p-[5px] text-left	border-solid border-[#909090] border">Monto</th>
+        <th class="bg-[#303030] text-[#f2f2f2] p-[5px] text-left	border-solid border-[#909090] border">Descripción</th>
+        <th class="bg-[#303030] text-[#f2f2f2] p-[5px] text-left	border-solid border-[#909090] border">Fecha
+          (dd/mm/aaaa)
+        </th>
+      </tr>
+      <tr v-for="transaccion in transacciones">
+
+        <td :class="{'bg-emerald-600' : transaccion.amount > 0, 'bg-rose-600' : transaccion.amount < 0}"
+          class="p-[5px] border-solid border-[#909090] border font-semibold text-white">
+          {{transaccion.type}}</td>
+        <td :class="{'bg-emerald-600' : transaccion.amount > 0, 'bg-rose-600' : transaccion.amount < 0}"
+          class="p-[5px] border-solid border-[#909090] border font-semibold text-white">${{new
+          Intl.NumberFormat().format(transaccion.amount)}}
+        </td>
+        <td :class="{'bg-emerald-600' : transaccion.amount > 0, 'bg-rose-600' : transaccion.amount < 0}"
+          class="p-[5px]	border-solid border-[#909090] border font-semibold text-white">{{transaccion.description}}</td>
+        <td :class="{'bg-emerald-600' : transaccion.amount > 0, 'bg-rose-600' : transaccion.amount < 0}"
+          class="p-[5px]	border-solid border-[#909090] border font-semibold text-white">
+          {{formatearFecha(transaccion.date)}}</td>
+
+
+      </tr>
+
+      <tr v-if="transacciones.length == 0">
+        <td class="text-center" colspan="4">No tiene transferencias</td>
+      </tr>
+
+    </table>
+
+
+
+
+
+    <div v-for="transaccion in transacciones" class="tabla sm:hidden">
+
+
+
+      <div class="fila mb-[2rem]">
+        <div class="columna flex justify-center">
+          <div
+            class="header p-[10px] border border-solid	border-[#909090] border-b-0 w-[40%] bg-[#303030] text-[#ffffff] font-bold">
+            Tipo</div>
+          <div :class="{'bg-emerald-600' : transaccion.amount > 0, 'bg-rose-600' : transaccion.amount < 0}"
+            class="contenido p-[10px] border border-solid	border-[#909090] border-b-0  w-[50%] font-semibold text-white">
+            {{transaccion.type}}
+          </div>
+        </div>
+        <div class="columna flex justify-center">
+          <div
+            class="header p-[10px] border border-solid	border-[#909090] border-b-0 w-[40%] bg-[#303030] text-[#ffffff] font-bold">
+            Monto</div>
+          <div :class="{'bg-emerald-600' : transaccion.amount > 0, 'bg-rose-600' : transaccion.amount < 0}"
+            class="contenido p-[10px] border border-solid	border-[#909090] border-b-0 w-[50%]">${{new
+            Intl.NumberFormat().format(transaccion.amount)}}</div>
+        </div>
+        <div class="columna flex justify-center">
+          <div
+            class="header p-[10px] border border-solid	border-[#909090] border-b-0 w-[40%] bg-[#303030] text-[#ffffff] font-bold">
+            Descripción</div>
+          <div :class="{'bg-emerald-600' : transaccion.amount > 0, 'bg-rose-600' : transaccion.amount < 0}"
+            class="contenido p-[10px] border border-solid	border-[#909090] border-b-0 w-[50%]">
+            {{transaccion.description}}</div>
+        </div>
+        <div class="columna flex justify-center">
+          <div
+            class="header p-[10px] border border-solid	border-[#909090] border-b-0 w-[40%] bg-[#303030] text-[#ffffff] font-bold">
+            Fecha (dd/mm/aaaa)</div>
+          <div :class="{'bg-emerald-600' : transaccion.amount > 0, 'bg-rose-600' : transaccion.amount < 0}"
+            class="contenido p-[10px] border border-solid	border-[#909090] w-[50%]">
+            {{formatearFecha(transaccion.date)}}</div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+
+  </div>
+
+
+  </div>
+
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../js/account.js"></script>
+
+
+</body>

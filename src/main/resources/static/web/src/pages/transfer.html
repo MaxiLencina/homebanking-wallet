@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;800;1000&display=swap" rel="stylesheet">
+  <title>FRC BANK</title>
+  <link rel="shortcut icon" href="../assets/imgQueVoyAUsar/FRC_BANK.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="../../dist/output.css" rel="stylesheet">
+</head>
+
+<body class="bg-cover bg-fixed bg-[url('../assets/imgQueVoyAUsar/bg_hero_accounts2.jpg')]">
+  <div id="app" class="mx-[16px] sm:max-w-[700px] sm:mx-auto ">
+    <!-- navbar -->
+    <nav class=" flex justify-between items-center sm:max-w-[600px] sm:mx-auto">
+      <a class="logo text-white absolute top-[30px] sm:static " href="./accounts.html"><img
+          class="w-[70px] h-[25px] self-center invert" src="../assets/imgQueVoyAUsar/FRC_BANK.png"
+          alt="logo_frcbank"></a>
+      <div class="w-[40px]  absolute top-[1rem] right-[0.7rem] invert sm:hidden cursor-pointer z-40  ">
+        <img @click=" clickMenuDos()" class="max-w-[100%] " src="../assets/imgQueVoyAUsar/menu_icon.svg"
+          alt="iconomenu">
+      </div>
+      <ul :class="{'translate-y-0': active}"
+        class="flex flex-col gap-4 sm:flex-row items-center translate-y-[-100%] sm:translate-y-0 z-30 transition-transform ease delay-150 py-[30px] w-full sm:w-auto">
+        <li><a
+            class=" text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./accounts.html">Cuenta</a></li>
+        <li><a
+            class="text-gray-300 border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="#">Transacciones</a></li>
+
+        <li><a
+            class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./create-cards.html">Tarjetas</a></li>
+        <li><a
+            class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+            href="./loanAplication.html">Prestamos</a></li>
+
+        <li title="cerrar sesión" @click="LogOut()"><a href="#"><img class="w-[20px] h-[20px]"
+              src="../assets/imgQueVoyAUsar/icono_logout.svg" alt="logo_user"></a>
+        </li>
+        <!-- <li class="sm:ml-24 p-[10px]"><a @click="LogOut()" class="w-[30px] h-[30px] flex flex-row gap-2 " href=""
+                  title="cerrar sesión">
+                  <p>Logout</p>
+                  <img class="w-[20px]" src="../assets/imgQueVoyAUsar/icono_logout.svg" alt="iconologout">
+                </a></li> -->
+
+      </ul>
+
+
+    </nav>
+
+    
+    <h3 class="text-center text-white text-4xl font-semibold">Transacciones
+    </h3>
+    <!-- seccion -->
+    <div id="transacciones"
+      class="tab-content sm:max-w-[600px]  sm:mx-auto  shadow-sm rounded-lg mt-[2rem] flex flex-col justify-center items-center bg-[url('../assets/imgQueVoyAUsar/bgtransacciones.jpg')] bg-no-repeat bg-contain bg-[center_top_10px] mb-[3rem] realtive">
+
+
+      <div
+        class="  w-full rounded-t-[40px] mt-[10rem]  sm:mt-[13rem] flex flex-col md:flex-row bg-gradient-to-b from-gray-900 to-gray-700">
+        <!-- 1ra seccion -->
+        <div class="w-full">
+
+
+          <form action="" class="flex flex-col flex-wrap mx-[25px]" class="input_group">
+            <!-- inicio flowbite radio -->
+
+            <ul class="grid gap-2 w-full md:grid-cols-2 mt-[2rem]">
+              <li class="p-[14px]">
+                <input type="radio" name="" value="miCuenta" v-model="accountType" id="me" class="hidden peer" required>
+                <label for="me"
+                  class="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                  <div class="block">
+
+                    <div class="w-full">Quiero transferir a una de mis cuentas.</div>
+                  </div>
+                  <svg aria-hidden="true" class="ml-3 w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </label>
+              </li>
+              <li class="p-[14px]">
+                <input type="radio" name="" value="otraCuenta" v-model="accountType" id="alguienMas"
+                  class="hidden peer">
+                <label for="alguienMas"
+                  class="inline-flex justify-between items-center p-5 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer  peer-checked:border-[#5271FF] peer-checked:text-[#5271FF] hover:text-gray-600 hover:bg-gray-100">
+                  <div class="block">
+                    <div class="w-full">Quiero transferir a la cuenta de otra persona.</div>
+                  </div>
+                  <svg aria-hidden="true" class="ml-3 w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                      d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </label>
+              </li>
+            </ul>
+
+
+            <!-- fin de flowbite radio -->
+
+            <div v-show="accountType == 'miCuenta'">
+              <div class="flex-col flex gap-6 mx-4">
+                <label class=" text-white font-medium flex-col flex gap-6 " for="">Transferir desde:
+                  <select v-model="cuentaP" aria-placeholder="Elije una cuenta"
+                    class="inline-flex justify-between items-center p-2 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer  peer-checked:border-[#5271FF] peer-checked:text-[#5271FF] hover:text-gray-600 hover:bg-gray-100">
+                    <option selected disabled hidden value>Elige una cuenta </option>
+                    <option v-for="account in accounts" :value="account.number">{{account.number}} -
+                      balance ${{account.balance}}</option>
+                  </select>
+                </label>
+                <label class="text-white font-medium flex-col flex gap-6" for="">Transferir a:
+                  <select v-model="cuentaD"
+                    class="inline-flex justify-between items-center p-2 w-full text-gray-500 bg-white rounded-lg border border-gray-200 cursor-pointer  peer-checked:border-[#5271FF] peer-checked:text-[#5271FF] hover:text-gray-600 hover:bg-gray-100">
+                    <option selected disabled hidden value>Elige una cuenta </option>
+                    <option v-for="account in accounts" :value="account.number">{{account.number}} -
+                      balance ${{account.balance}}</option>
+                  </select>
+                </label>
+                <input type="text" v-model="amount" placeholder="Monto"
+                  class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-[#5271FF] focus:border-transparent">
+                <input type="text" v-model="description" placeholder="Descripción"
+                  class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-[#5271FF] focus:border-transparent">
+
+              </div>
+            </div>
+
+            <div v-show="accountType == 'otraCuenta'">
+              <div class="mx-4">
+                <label class="text-white font-medium flex-col flex gap-6 " for=""> Transferir desde:
+                  <select v-model="cuentaP" aria-placeholder="Elije una cuenta"
+                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-[#5271FF] focus:border-transparent">
+                    <option selected disabled hidden value>Elija una cuenta</option>
+                    <option v-for="account in accounts" :value="account.number">{{account.number}} -
+                      balance ${{account.balance}}</option>
+                  </select>
+                  <h6 class="text-white font-medium">Buscar número de cuenta</h6>
+                  <input type="text" placeholder="Busca una cuenta" v-model="cuentaD"
+                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-[#5271FF] focus:border-transparent">
+                  <input type="text" placeholder="Monto" v-model="amount"
+                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-[#5271FF] focus:border-transparent">
+                  <input type="text" v-model="description" placeholder="Descripción"
+                    class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-[#5271FF] focus:border-transparent">
+
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+      <!-- 2da seccion -->
+      <div
+        class="w-full bg-gradient-to-t from-gray-900 to-gray-700 flex justify-center items-center rounded-b-lg pt-[2rem]">
+        <button @click="sendTransfer"
+          class="text-white bg-[#5271FF] hover:bg-[#4562e2d3] focus:ring-4 focus:outline-none font-medium rounded text-[12px]  text-center hover:transition-all duration-300 ease-in  mb-[5rem] p-[10px]">Transferir</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script src="../js/transfer.js"></script>
+</body>
+
+</html>

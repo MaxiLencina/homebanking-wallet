@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRC Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;800;1000&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="../assets/imgQueVoyAUsar/FRC_BANK.png" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="../../dist/output.css" rel="stylesheet">
+  <!-- npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch 
+    PARA REBUILDEAR
+-->
+</head>
+
+<body class=" body_accounts  bg-cover bg-fixed bg-[url('../assets/imgQueVoyAUsar/bg_hero_accounts2.jpg')]">
+  <div class="bg-[linear-gradient(to right, rgb(0 0 0 / .8), rgb(0 0 0 / 0))]">
+    <div id="app" class="mx-[16px] sm:max-w-[700px] sm:mx-auto">
+      <!-- navbar -->
+      <nav class=" flex justify-between items-center sm:max-w-[600px] sm:mx-auto">
+        <a class="logo text-white absolute top-[30px] sm:static " href="./accounts.html"><img
+            class="w-[70px] h-[25px] self-center invert" src="../assets/imgQueVoyAUsar/FRC_BANK.png"
+            alt="logo_frcbank"></a>
+        <div class="w-[40px]  absolute top-[1rem] right-[0.7rem] invert sm:hidden cursor-pointer z-40  ">
+          <img @click=" clickMenuDos()" class="max-w-[100%] " src="../assets/imgQueVoyAUsar/menu_icon.svg"
+            alt="iconomenu">
+        </div>
+        <ul :class="{'translate-y-0': active}"
+          class="flex flex-col gap-4 sm:flex-row items-center translate-y-[-100%] sm:translate-y-0 z-30 transition-transform ease delay-150 py-[30px] w-full sm:w-auto">
+          <li><a
+              class=" text-gray-300 border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+              href="#">Cuenta</a></li>
+          <li><a
+              class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+              href="./transfer.html#transacciones">Transacciones</a></li>
+
+          <li><a
+              class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+              href="./create-cards.html">Tarjetas</a></li>
+          <li><a
+              class="text-white hover:text-gray-300 hover:border-b-[3px] border-solid border-gray-400 p-[2px] transition-[border] ease-in-out duration-200 font-semibold"
+              href="./loanAplication.html">Prestamos</a></li>
+
+          <li title="cerrar sesión" @click="LogOut()"><a href="#"><img class="w-[20px] h-[20px]"
+                src="../assets/imgQueVoyAUsar/icono_logout.svg" alt="logo_user"></a>
+          </li>
+          <!-- <li class="sm:ml-24 p-[10px]"><a @click="LogOut()" class="w-[30px] h-[30px] flex flex-row gap-2 " href=""
+              title="cerrar sesión">
+              <p>Logout</p>
+              <img class="w-[20px]" src="../assets/imgQueVoyAUsar/icono_logout.svg" alt="iconologout">
+            </a></li> -->
+
+        </ul>
+
+
+      </nav>
+
+
+
+
+
+
+      <header class="flex  my-[32px] justify-between sm:max-w-[600px] sm:mx-auto">
+        <div class="flex flex-col">
+          <p class="text-white font-medium text-[13px] sm:text-[20px]">Hola {{cliente.firstName + " " +
+            cliente.lastName}}.</p>
+          <div class="flex gap-2">
+            <h1 class="text-white font-bold text-[15px] sm:[23px]">Bienvenida/o a </h1>
+            <img class="w-[45px] h-[18px] self-center invert" src="../assets/imgQueVoyAUsar/FRC_BANK.png"
+              alt="logo_frcbank">
+          </div>
+        </div>
+
+      </header>
+
+      <!-- CUENTAS -->
+      <div v-for="cuenta in cuentas" class="account-card flex flex-col gap-4 sm:max-w-[600px] sm:mx-auto">
+        <div
+          class="mt-[1rem] card1 w-full h-[130px] rounded-lg  flex flex-row justify-between items-center bg-gradient-to-b from-gray-900 to-gray-700  shadow-2xl pr-6">
+          <div class="px-4 flex flex-col ">
+            <p class="text-[16px] font-semibold text-gray-400">Cuenta: {{cuenta.number}}</p>
+            <p class="text-[12px] font-medium text-[#5271FF]">Balance</p>
+            <p class="text-[12xp] font-medium text-gray-400">${{new Intl.NumberFormat().format(cuenta.balance)}}</p>
+            <a :href="'./account.html?id=' + cuenta.id"
+              class="text-white bg-[#5271FF] hover:bg-[#5271FF90] focus:ring-4 focus:outline-none font-medium rounded text-[12px] p-[3px] text-center w-[150px] dark:focus:ring-blue-800 hover:transition-all duration-300 ease-in mt-2.5">Ver
+              transacciones</a>
+          </div>
+          <div class=" w-[70px] ">
+            <img src=" ../assets/imgQueVoyAUsar/icono_cuenta.svg" alt="imagencard">
+          </div>
+        </div>
+      </div>
+      <!--  boton crear cuentas -->
+      <div :class="{'hidden' : cuentas.length == 3}">
+        <a @click="crearCuenta()" href="#"
+          class="flex flex-row justify-center sm:mx-auto items-center gap-2 w-[150px] h-[30px]  my-[32px] text-white bg-[#5271FF] hover:bg-[#395cf8] focus:ring-4 focus:outline-none font-medium rounded text-[12px] p-[3px] text-center dark:focus:ring-blue-800 hover:transition-all duration-300 ease-in">
+          <p class="">Crear cuenta</p>
+          <span
+            class="bg-white w-[20px] h-20px text-gray-700 text-center rounded-full pb-[2px] hover:scale-125 transition-all duration-150 ease-in cursor-pointer">+</span>
+        </a>
+      </div>
+
+      <!--     Pestañas  -->
+      <div class="sm:max-w-[600px] sm:mx-auto flex flex-wrap justify-between mt-[2rem]">
+        <a href="#tarjetas">
+          <div title="Tarjetas" @click="setActive('tab-1')" :class="{'-translate-y-3' : isActive('tab-1')}"
+            class="bg-tag-blue rounded-lg flex  w-[70px] h-[70px] sm:flex-row sm:w-[180px] sm:h-[80px] items-center justify-center gap-2 cursor-pointer hover:-translate-y-3 hover:transition-[translate] duration-300 ease-in ">
+            <div class="glass-icon flex justify-center items-center h-10 w-10">
+              <img class="invert w-[25px] h-[25px] " src="../assets/imgQueVoyAUsar/tag-creditcard.png" alt="iconocard">
+            </div>
+            <h4 class="text-[#f2f2f2] font-medium text-lg sm:text-xl hidden sm:block">Tarjetas</h4>
+          </div>
+        </a>
+        <div @click="setActive('tab-2')" :class="{'-translate-y-3' : isActive('tab-2')}" title="Prestamos"
+          class="bg-tag-blue rounded-lg flex w-[70px] h-[70px] sm:flex-row sm:w-[180px] sm:h-[80px] items-center justify-center gap-2 cursor-pointer hover:-translate-y-3 hover:transition-[translate] duration-300 ease-in ">
+          <div class="glass-icon flex justify-center items-center h-10 w-10">
+            <img class="invert w-[25px] h-[25px]" src="../assets/imgQueVoyAUsar/tag-loan.png" alt="iconloan">
+          </div>
+          <h4 class="text-[#f2f2f2] font-medium text-lg sm:text-xl hidden sm:block">Prestamos</h4>
+        </div>
+        <div @click="setActive('tab-3')" :class="{'-translate-y-3' : isActive('tab-3')}" title="Transacciones"
+          class="bg-tag-blue rounded-lg flex w-[70px] h-[70px] sm:flex-row sm:w-[210px] sm:h-[80px] items-center justify-center gap-2 cursor-pointer hover:-translate-y-3 hover:transition-[translate] duration-300 ease-in ">
+          <div class=" glass-icon flex justify-center items-center h-10 w-10">
+            <img class="invert w-[25px] h-[25px]" src="../assets/imgQueVoyAUsar/tag-sendtransaction.png"
+              alt="iconotransaccion">
+          </div>
+          <h4 class="text-[#f2f2f2] font-medium text-lg sm:text-xl hidden sm:block">Transacciones</h4>
+        </div>
+      </div>
+
+
+      <!-- contenido de las pestañas -->
+      <div id="tarjetas" v-show="isActive('tab-1')"
+        class="tab-content sm:max-w-[600px]  sm:mx-auto  shadow-sm rounded-lg mt-[2rem] flex flex-col justify-center items-center bg-[url('../assets/imgQueVoyAUsar/bg-cards.jpg')] bg-contain  bg-repeat  bg-left-top transition-[display] duration-200 ease-in-out mb-[3rem] ">
+
+
+        <div
+          class="  w-full rounded-t-[40px] mt-[10rem] sm:mt-[13rem] flex flex-col md:flex-row bg-gradient-to-b from-gray-900 to-gray-700">
+          <!-- 1ra seccion -->
+          <div class="w-full">
+            <h3 class="text-center text-white text-xl mt-[3rem]">Creá tu <span class="font-medium">tarjeta
+                GRATIS</span>
+            </h3>
+
+            <div class="flex flex-row gap-3 ml-[12px] my-[3rem]">
+              <a href="../pages/create-cards.html" class="contenedor_boton_agregar_card cursor-pointer">
+                <div
+                  class="bg-gray-300 w-[30px] sm:w-[50px] h-[200px] rounded-[20px] flex justify-center items-center shadow-lg hover:scale-105 transition-all duration-150 ease-in ">
+                  <img class="w-[25px] h-[25px]" src="../assets/imgQueVoyAUsar/iconosumar.svg" alt="iconosumar">
+                </div>
+              </a>
+              <div class="horizontal_slider  overflow-x-scroll ">
+                <div class="slider_container flex flex-row gap-2 mb-[1rem]">
+                  <div class=" item section_card_gold min-w-[200px] h-[200px] rounded-[20px] shadow-lg ">
+                    <div class="flex flex-row
+                     justify-between">
+                      <div class="flex flex-col ml-[10px]">
+                        <img class="w-[60px] h-[60px]" src="../assets/imgQueVoyAUsar/logo_visa.svg" alt="logovisa">
+                        <img class="w-[40px] h-[15px] self-center" src="../assets/imgQueVoyAUsar/FRC_BANK.png"
+                          alt="logo frc">
+                      </div>
+                      <div class="pt-[1rem] pr-[1rem]">
+                        <p class="text-[10px]">Credito</p>
+                        <p class="text-[10px]">Debito</p>
+                        <p class="text-[15px] font-medium">GOLD</p>
+                      </div>
+                    </div>
+                    <p class="text-center font-semibold mt-[15px]">0000 2312 5678 2341</p>
+                    <div class="flex flex-row mt-[40px] gap-6 ml-[14px]">
+                      <img class="invert w-[40px] h-[40px]" src="../assets/imgQueVoyAUsar/chipcard.png" alt="chiplogo">
+                      <div>
+                        <p class="text-[12px] font-medium">EXPIRES END</p>
+                        <p class="text-[12px]">12/22</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="item section_card_silver min-w-[200px] h-[200px] rounded-[20px] shadow-lg bg-contain bg-top">
+                    <div class=" item section_card_silver min-w-[200px] h-[200px] rounded-[20px] shadow-lg ">
+                      <div class="flex flex-row
+                                       justify-between">
+                        <div class="flex flex-col ml-[10px]">
+                          <img class="w-[60px] h-[60px]" src="../assets/imgQueVoyAUsar/logo_visa.svg" alt="logovisa">
+                          <img class="w-[40px] h-[15px] self-center" src="../assets/imgQueVoyAUsar/FRC_BANK.png"
+                            alt="logo frc">
+                        </div>
+                        <div class="pt-[1rem] pr-[1rem]">
+                          <p class="text-[10px]">Credito</p>
+                          <p class="text-[10px]">Debito</p>
+                          <p class="text-[15px] font-medium">SILVER</p>
+                        </div>
+                      </div>
+                      <p class="text-center font-semibold mt-[15px]">0000 2312 5678 2341</p>
+                      <div class="flex flex-row mt-[40px] gap-6 ml-[14px]">
+                        <img class="invert w-[40px] h-[40px]" src="../assets/imgQueVoyAUsar/chipcard.png"
+                          alt="chiplogo">
+                        <div>
+                          <p class="text-[12px] font-medium">EXPIRES END</p>
+                          <p class="text-[12px]">12/22</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="item  section_card_titanium min-w-[200px] h-[200px] rounded-[20px] shadow-lg">
+                    <div class=" item section_card_titanium min-w-[200px] h-[200px] rounded-[20px] shadow-lg ">
+                      <div class="flex flex-row justify-between">
+                        <div class="flex flex-col ml-[10px]">
+                          <img class="w-[60px] h-[60px]" src="../assets/imgQueVoyAUsar/logo_visa.svg" alt="logovisa">
+                          <img class="w-[40px] h-[15px] self-center" src="../assets/imgQueVoyAUsar/FRC_BANK.png"
+                            alt="logo frc">
+                        </div>
+                        <div class="pt-[1rem] pr-[1rem]">
+                          <p class="text-[10px]">Credito</p>
+                          <p class="text-[10px]">Debito</p>
+                          <p class="text-[15px] font-medium">TITANIUM</p>
+                        </div>
+                      </div>
+                      <p class="text-center font-semibold mt-[15px]">0000 2312 5678 2341</p>
+                      <div class="flex flex-row mt-[40px] gap-6 ml-[14px]">
+                        <img class="invert w-[40px] h-[40px]" src="../assets/imgQueVoyAUsar/chipcard.png"
+                          alt="chiplogo">
+                        <div>
+                          <p class="text-[12px] font-medium">EXPIRES END</p>
+                          <p class="text-[12px]">12/22</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- 2da seccion -->
+        <div class="w-full bg-gradient-to-t from-gray-900 to-gray-700 flex justify-center items-center rounded-b-lg">
+          <a class="text-white bg-[#5271FF] hover:bg-[#4562e2d3] focus:ring-4 focus:outline-none font-medium rounded text-[12px]  text-center hover:transition-all duration-300 ease-in  mb-[5rem] p-[10px]"
+            href="../pages/cards.html">Ver mis tarjetas</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../js/accounts.js"></script>
+</body>
+
+</html>
